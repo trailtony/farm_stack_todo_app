@@ -1,3 +1,4 @@
+# dal.py will handle mongo db interactions
 # Standard inbuilt libraries
 from uuid import uuid4
 # Third-party libraries
@@ -7,6 +8,9 @@ from pymongo import ReturnDocument
 from pydantic import BaseModel
 
 class ListSummary(BaseModel):
+    """
+    Create ListSummary instances from MongoDB documents
+    """
     id: str
     name: str
     item_count: int
@@ -19,8 +23,11 @@ class ListSummary(BaseModel):
             item_count=doc["item_count"]
             )
 
-
+# Data Models
 class ToDoListItem(BaseModel):
+    """
+    Create ToDoListItem instances from MongoDB documents
+    """
     id: str
     label: str
     checked: bool
@@ -35,6 +42,9 @@ class ToDoListItem(BaseModel):
 
 
 class ToDoList(BaseModel):
+    """
+    Create ToDoList instances from MongoDB documents
+    """
     id: str
     name: str
     items: list[ToDoListItem]
@@ -49,6 +59,9 @@ class ToDoList(BaseModel):
 
 
 class ToDoDAL:
+    """
+    Will encapsulate all MongoDB operations.
+    """
     def _init_(self, todo_collection: AsyncIOMotorClient):
         self._todo_collection = todo_collection
 
